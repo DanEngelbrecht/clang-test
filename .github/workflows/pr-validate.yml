@@ -22,3 +22,20 @@ jobs:
       with:
         clang-format-version: '12'
         check-path: ${{ matrix.path }}
+
+  checkout-and-check-formatting:
+      runs-on: ubuntu-latest
+      strategy:
+            matrix:
+              path:
+                - 'src_one'
+                - 'src_two'
+
+      steps:
+      - uses: actions/checkout@v2
+      - name: Run clang-tidy
+        uses: HorstBaerbel/action-clang-tidy@1.2
+        with:
+          scandir: ${{ matrix.path }}
+          builddir: 'build'
+          extensions: 'h,cpp'
