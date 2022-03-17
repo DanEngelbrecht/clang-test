@@ -6,36 +6,35 @@ on:
 
 jobs:
 
-  clang-format:
-    name: Formatting Check
-    runs-on: ubuntu-latest
-    strategy:
-          matrix:
-            path:
-              - 'src_one'
-              - 'src_two'
-
+  vcpkg-win:
+    name: vcpkg-win
+    runs-on: windows-2022
     steps:
-    - uses: actions/checkout@v2
-    - name: clang-format ${{ matrix.path }}
-      uses: jidicula/clang-format-action@v4.6.2
-      with:
-        clang-format-version: '12'
-        check-path: ${{ matrix.path }}
+    - name: cache paths
+      run: |
+        echo VCPKG_DEFAULT_BINARY_CACHE: %VCPKG_DEFAULT_BINARY_CACHE%
+        echo LOCALAPPDATA: %LOCALAPPDATA%\vcpkg\archives
+        echo APPDATA: %APPDATA%\vcpkg\archives
+        echo VCPKG_DEFAULT_BINARY_CACHE: ${env:VCPKG_DEFAULT_BINARY_CACHE}
+        echo LOCALAPPDATA: ${env:LOCALAPPDATA}\vcpkg\archives
+        echo APPDATA: ${env:APPDATA}\vcpkg\archives
 
-  checkout-and-check-formatting:
-      runs-on: ubuntu-latest
-      strategy:
-            matrix:
-              path:
-                - 'src_one'
-                - 'src_two'
+  vcpkg-lunux:
+    name: vcpkg-lunux
+    runs-on: ubuntu-20.04
+    steps:
+    - name: cache paths
+      run: |
+        echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
+        echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
+        echo HOME: $HOME/.cache/vcpkg/archives
 
-      steps:
-      - uses: actions/checkout@v2
-      - name: Run clang-tidy
-        uses: HorstBaerbel/action-clang-tidy@1.2
-        with:
-          scandir: ${{ matrix.path }}
-          builddir: 'build'
-          extensions: 'h,cpp'
+  vcpkg-macos:
+    name: vcpkg-macos
+    runs-on: macos-11
+    steps:
+    - name: cache paths
+      run: |
+        echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
+        echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
+        echo HOME: $HOME/.cache/vcpkg/archives
