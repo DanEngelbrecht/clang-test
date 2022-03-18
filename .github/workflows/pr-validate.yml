@@ -12,6 +12,7 @@ jobs:
     steps:
     - name: cache paths
       run: |
+        echo C:\Windows\System32\WHERE vcpkg.exe
         echo VCPKG_ROOT: %VCPKG_ROOT%
         echo VCPKG_DEFAULT_BINARY_CACHE: %VCPKG_DEFAULT_BINARY_CACHE%
         echo LOCALAPPDATA: %LOCALAPPDATA%\vcpkg\archives
@@ -27,6 +28,7 @@ jobs:
     steps:
     - name: cache paths
       run: |
+        whereis vcpkg
         echo VCPKG_ROOT: $VCPKG_ROOT
         echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
         echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
@@ -39,6 +41,7 @@ jobs:
     steps:
     - name: cache paths
       run: |
+        whereis vcpkg
         echo VCPKG_ROOT: $VCPKG_ROOT
         echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
         echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
