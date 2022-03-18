@@ -10,40 +10,37 @@ jobs:
     name: vcpkg-win
     runs-on: windows-2022
     steps:
-    - name: cache paths
+    - name: Installing vcpkg (windows)
       run: |
-        C:\Windows\System32\WHERE vcpkg.exe
-        echo VCPKG_ROOT: %VCPKG_ROOT%
-        echo VCPKG_DEFAULT_BINARY_CACHE: %VCPKG_DEFAULT_BINARY_CACHE%
-        echo LOCALAPPDATA: %LOCALAPPDATA%\vcpkg\archives
-        echo APPDATA: %APPDATA%\vcpkg\archives
-        echo VCPKG_DEFAULT_BINARY_CACHE: ${env:VCPKG_DEFAULT_BINARY_CACHE}
-        echo LOCALAPPDATA: ${env:LOCALAPPDATA}\vcpkg\archives
-        echo APPDATA: ${env:APPDATA}\vcpkg\archives
-        dir $VCPKG_ROOT
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 5962cf5a3bfc2124e8de991a4e45a8edcb3b4c69
+        .\bootstrap-vcpkg.bat
+        echo VCPKG_ROOT: $VCPKG_ROOT
 
   vcpkg-lunux:
     name: vcpkg-lunux
     runs-on: ubuntu-20.04
     steps:
-    - name: cache paths
+    - name: Installing vcpkg (windows)
       run: |
-        whereis vcpkg
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 5962cf5a3bfc2124e8de991a4e45a8edcb3b4c69
+        .\bootstrap-vcpkg.bat
         echo VCPKG_ROOT: $VCPKG_ROOT
-        echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
-        echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
-        echo HOME: $HOME/.cache/vcpkg/archives
-        ls $VCPKG_ROOT
 
   vcpkg-macos:
     name: vcpkg-macos
     runs-on: macos-11
     steps:
-    - name: cache paths
+    - name: Installing vcpkg (windows)
       run: |
-        whereis vcpkg
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 5962cf5a3bfc2124e8de991a4e45a8edcb3b4c69
+        .\bootstrap-vcpkg.bat
         echo VCPKG_ROOT: $VCPKG_ROOT
-        echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
-        echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
-        echo HOME: $HOME/.cache/vcpkg/archives
-        ls $VCPKG_ROOT
