@@ -12,12 +12,14 @@ jobs:
     steps:
     - name: cache paths
       run: |
+        echo VCPKG_ROOT: %VCPKG_ROOT%
         echo VCPKG_DEFAULT_BINARY_CACHE: %VCPKG_DEFAULT_BINARY_CACHE%
         echo LOCALAPPDATA: %LOCALAPPDATA%\vcpkg\archives
         echo APPDATA: %APPDATA%\vcpkg\archives
         echo VCPKG_DEFAULT_BINARY_CACHE: ${env:VCPKG_DEFAULT_BINARY_CACHE}
         echo LOCALAPPDATA: ${env:LOCALAPPDATA}\vcpkg\archives
         echo APPDATA: ${env:APPDATA}\vcpkg\archives
+        dir $VCPKG_ROOT
 
   vcpkg-lunux:
     name: vcpkg-lunux
@@ -25,9 +27,11 @@ jobs:
     steps:
     - name: cache paths
       run: |
+        echo VCPKG_ROOT: $VCPKG_ROOT
         echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
         echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
         echo HOME: $HOME/.cache/vcpkg/archives
+        ls $VCPKG_ROOT
 
   vcpkg-macos:
     name: vcpkg-macos
@@ -35,6 +39,8 @@ jobs:
     steps:
     - name: cache paths
       run: |
+        echo VCPKG_ROOT: $VCPKG_ROOT
         echo VCPKG_DEFAULT_BINARY_CACHE: $VCPKG_DEFAULT_BINARY_CACHE
         echo XDG_CACHE_HOME: $XDG_CACHE_HOME/vcpkg/archives
         echo HOME: $HOME/.cache/vcpkg/archives
+        ls $VCPKG_ROOT
