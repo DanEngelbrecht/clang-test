@@ -24,7 +24,7 @@ jobs:
           echo "PRERELEASE=false" >> $GITHUB_ENV
 
       - name: Set prerelease env
-        if: contains("0.2.1-pre0", 'pre')
+        if: contains('0.2.1-pre0', 'pre')
         run: echo "PRERELEASE=true" >> $GITHUB_ENV
 
       - name: Set prerelease output
