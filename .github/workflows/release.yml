@@ -6,24 +6,23 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-env:
-  NODE_VERSION: "12.x"
-  APP_VERSION: "1.0.O"
-
 jobs:
   get-tag:
     runs-on: ubuntu-latest
-    outputs:
-      tag-name: ${{steps.compute-tag.outputs.tag}}
-
     steps:
-      - name: compute tag
-        id: compute-tag
-        run: |
-          $GITHUB_FULLREF="${{ github.ref }}"
-          $RELEASE_VERSION=$GITHUB_FULLREF -replace 'refs/.*/', ''
-          echo Version $RELEASE_VERSION
-          echo "::set-output name=tag::$RELEASE_VERSION"
+      - name: Set RELEASE_VERSION env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+#    outputs:
+#      tag-name: ${{steps.compute-tag.outputs.tag}}
+#
+#    steps:
+#      - name: compute tag
+#        id: compute-tag
+#        run: |
+#          $GITHUB_FULLREF="${{ github.ref }}"
+#          $RELEASE_VERSION=$GITHUB_FULLREF -replace 'refs/.*/', ''
+#          echo Version $RELEASE_VERSION
+#          echo "::set-output name=tag::$RELEASE_VERSION"
 
   use-tag:
     strategy:
@@ -36,4 +35,5 @@ jobs:
     steps:
     - name: Show tag
       run: |
-        echo ${{needs.get-tag.outputs.tag}}
+         echo ${{env.RELEASE_VERSION}}
+#        echo ${{needs.get-tag.outputs.tag}}
