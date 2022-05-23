@@ -48,5 +48,5 @@ jobs:
     - name: Show tag
       run: |
         echo "version: ${{needs.get-version-tag.outputs.version}}"
-        echo "prerelease: ${{needs.get-version-tag.outputs.pre-release}}""
+        echo "prerelease: ${{needs.get-version-tag.outputs.pre-release}}"
 #         echo ${{env.RELEASE_VERSION}}
