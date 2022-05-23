@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{steps.get-tag.outputs.tag}}
-      prerelease: ${{steps.get-prerelease.outputs.value}}
+      prerelease: ${{steps.get-prerelease.outputs.prerelease}}
     steps:
       - name: Set version output
         id: get-tag
@@ -21,14 +21,16 @@ jobs:
           echo "${GITHUB_REF#refs/*/}"
           echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
           echo "::set-output name=tag::${GITHUB_REF#refs/*/}"
+          echo "PRERELEASE=false" >> $GITHUB_ENV
+
+      - name: Set prerelease env
+        if: contains(${GITHUB_REF}, '-pre')
+        run: |
+          echo "PRERELEASE=true" >> $GITHUB_ENV
 
       - name: Set prerelease output
         id: get-prerelease
-        uses: haya14busa/action-cond@v1
-        with:
-          cond: contains(${{GITHUB_REF}}, '-pre')
-          if_true: "true"
-          if_false: "false"
+          echo "::set-output name=prerelease::${env.PRERELEASE}"
 
 #
 #    steps:
