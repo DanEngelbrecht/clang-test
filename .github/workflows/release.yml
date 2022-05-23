@@ -25,12 +25,11 @@ jobs:
 
       - name: Set prerelease env
         if: contains(${GITHUB_REF}, '-pre')
-        run: |
-          echo "PRERELEASE=true" >> $GITHUB_ENV
+        run: echo "PRERELEASE=true" >> $GITHUB_ENV
 
       - name: Set prerelease output
         id: get-prerelease
-          echo "::set-output name=prerelease::${env.PRERELEASE}"
+        run: echo "::set-output name=prerelease::${env.PRERELEASE}"
 
 #
 #    steps:
