@@ -35,7 +35,7 @@ jobs:
         id: get-prerelease
         uses: haya14busa/action-cond@v1
         with:
-          cond: contains(github.ref, '-pre')
+          cond: ${{contains(github.ref, '-pre')}}
           if_true: "true"
           if_false: "false"
 
